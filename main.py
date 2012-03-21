@@ -11,6 +11,21 @@ class coords:
         self.x=0
         self.y=0
 
+
+class mob:
+    def __init__(self):
+        self.pos=coords()
+        self.vel=coords()
+        self.vel.x=1
+        self.vel.y=1
+
+    def timeStep(self,dt):
+        self.pos.x = self.pos.x + self.vel.x*dt
+        self.pos.x = self.pos.x + self.vel.x*dt
+
+
+protagonist = pyglet.image.load('blueflower.png')
+
 window = pyglet.window.Window()
 
 label = pyglet.text.Label('Hello, Jewel Theif',
@@ -39,12 +54,15 @@ def on_draw():
     #window.clear()
     #positionLabel.draw()
     #label.draw()
-    pyglet.graphics.draw_indexed(3, pyglet.gl.GL_TRIANGLES,
-    [0, 1, 2],
-    ('v2i', (pos.x, pos.y,
-             pos.x+50, pos.y,
-             pos.x+25, pos.y+25))
-                                 )
+    #pyglet.graphics.draw_indexed(3, pyglet.gl.GL_TRIANGLES,
+    #[0, 1, 2],
+    #('v2i', (pos.x, pos.y,
+    #         pos.x+50, pos.y,
+    #         pos.x+25, pos.y+25))
+    #                             )
+   
+    protagonist.blit(pos.x,pos.y)
+    
     pass
 
 
