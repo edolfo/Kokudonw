@@ -15,15 +15,29 @@ class coords:
 class mob:
     def __init__(self):
         self.pos=coords()
+        self.pos.x = 100  #starting position
         self.vel=coords()
-        self.vel.x=1
-        self.vel.y=1
+        self.vel.x=200
+        self.vel.y=200
+        self.sprite=pyglet.image.load('blueflower.png')
 
     def timeStep(self,dt):
         self.pos.x = self.pos.x + self.vel.x*dt
-        self.pos.x = self.pos.x + self.vel.x*dt
+        self.pos.y = self.pos.y + self.vel.y*dt
+
+        # check bounds
+        bounds = coords()
+        bounds.x, bounds.y = window.get_size()
+        if bounds.x < self.pos.x or self.pos.x < 0:
+            self.vel.x = self.vel.x * -1
+        if bounds.y < self.pos.y or self.pos.y < 0:
+            self.vel.y = self.vel.y * -1
+
+        baddie.sprite.blit(baddie.pos.x,baddie.pos.y)
 
 
+baddie= mob()
+deltaT = 1./60.
 protagonist = pyglet.image.load('blueflower.png')
 
 window = pyglet.window.Window()
@@ -53,7 +67,7 @@ def on_mouse_motion(x, y, dx, dy):
 
 @window.event
 def on_draw():
-    #window.clear()
+    window.clear()
     #positionLabel.draw()
     #label.draw()
     #pyglet.graphics.draw_indexed(3, pyglet.gl.GL_TRIANGLES,
@@ -62,12 +76,13 @@ def on_draw():
     #         pos.x+50, pos.y,
     #         pos.x+25, pos.y+25))
     #                             )
-   
+    #protagonist.blit(pos.x,pos.y)
+    baddie.sprite.blit(baddie.pos.x,baddie.pos.y)
     pass
 
 
 
 #Prints to stdout every event that is handled
 window.push_handlers(pyglet.window.event.WindowEventLogger())
-
+pyglet.clock.schedule_interval(baddie.timeStep, deltaT)
 pyglet.app.run()
