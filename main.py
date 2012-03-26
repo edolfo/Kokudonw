@@ -36,15 +36,17 @@ label = pyglet.text.Label('Hello, Jewel Theif',
 positionLabel = pyglet.text.Label()
 
 pos = coords()
+cursor = pyglet.window.ImageMouseCursor(protagonist, 1, 1)
+window.set_mouse_cursor(cursor)
 
 @window.event
 def on_mouse_motion(x, y, dx, dy):
     window.clear()
-    positionLabel = pyglet.text.Label('x = ' + str(x) + '  y = ' + str(y),
-                          font_name='Times New Roman',
-                          font_size=24,
-                          x=window.width//4, y=window.height//4,
-                          anchor_x='center', anchor_y='center')
+    #positionLabel = pyglet.text.Label('x = ' + str(x) + '  y = ' + str(y),
+    #                      font_name='Times New Roman',
+    #                      font_size=24,
+    #                      x=window.width//4, y=window.height//4,
+    #                      anchor_x='center', anchor_y='center')
     positionLabel.draw()
     pos.x=x
     pos.y=y
@@ -61,8 +63,6 @@ def on_draw():
     #         pos.x+25, pos.y+25))
     #                             )
    
-    protagonist.blit(pos.x,pos.y)
-    
     pass
 
 
